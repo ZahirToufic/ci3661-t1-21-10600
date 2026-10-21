@@ -1,0 +1,56 @@
+Problema 7. Zahir Saad
+
+d = 21-10600 ==> [0,6,0,0]
+
+A)
+
+foldr (-) 0 [0,6,0,0]
+= 0 - foldr (-) 0 [6,0,0]
+= 0 - (6 - foldr (-) 0 [0,0])
+= 0 - (6 - (0 - foldr (-) 0 [0]))
+= 0 - (6 - (0 - (0 - foldr (-) 0 [])))
+= 0 - (6 - (0 - (0 - 0)))
+= 0 - (6 - (0 - 0))
+= 0 - (6 - 0)
+= 0 - 6
+= -6
+
+B)
+
+foldl (-) 0 [0,6,0,0]
+= foldl (-) (0 - 0) [6,0,0]
+= foldl (-) 0 [6,0,0]
+= foldl (-) (0 - 6) [0,0]
+= foldl (-) (-6) [0,0]
+= foldl (-) (-6 - 0) [0]
+= foldl (-) (-6) [0]
+= foldl (-) (-6 - 0) []
+= foldl (-) (-6) []
+= -6
+
+C)
+
+miFoldl (-) 0 [0,6]
+= foldr (\x g -> \acc -> g (acc - x)) id [0,6] 0
+= ((\x g -> \acc -> g (acc - x)) 0
+     (foldr (\x g -> \acc -> g (acc - x)) id [6])) 0
+= ((\g -> \acc -> g (acc - 0))
+     ((\x g -> \acc -> g (acc - x)) 6 id)) 0
+= ((\acc -> ((\x g -> \acc -> g (acc - x)) 6 id) (acc - 0)) 0)
+= ((\x g -> \acc -> g (acc - x)) 6 id) (0 - 0)
+= ((\g -> \acc -> g (acc - 6)) id) 0
+= (\acc -> id (acc - 6)) 0
+= id (0 - 6)
+= 0 - 6
+= -6 
+
+D)
+
+foldr asocia a la derecha mientras que que foldl asocia a la izquierda Por eso, 
+si op no es asociativa, como ocurre con (-), los resultados pueden ser distintos. 
+En este carnet en particular dieron lo mismo porque d = [0,6,0,0], pero eso no 
+ocurre en general. Una condición suficiente para garantizar que 
+foldr op z xs == foldl op z xs es que: op sea asociativa, y z sea el elemento 
+neutro de op, es decir, que para todo x `op` z = x.
+Por ejemplo, (+) con 0 y (*) con 1 cumplen. En cambio, (-) con 0 no cumple, 
+porque 0 - x no siempre es x, y además (-) no es asociativa.
