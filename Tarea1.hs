@@ -114,7 +114,7 @@ promedioSobreUmbral umbral xs =
         | otherwise  = (s, n)
   in if cuenta == 0
        then Nothing
-       else Just (suma / fromIntegral cuenta)
+       else Just (suma / fromIntegral cuenta) --fromIntegral es para transformar "cuenta" de entero a double
 
 -- B2
 movimientosCaballo :: (Int, Int) -> [(Int, Int)]
