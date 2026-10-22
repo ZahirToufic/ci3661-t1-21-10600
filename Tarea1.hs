@@ -147,4 +147,4 @@ miFilter :: (a -> Bool) -> [a] -> [a]
 miFilter p = foldr (\x acc -> if p x then x : acc else acc) []
 
 miFoldl :: (b -> a -> b) -> b -> [a] -> b
-miFoldl f z xs = foldr (\x g -> \acc -> g (f acc x)) id xs z
+miFoldl f z xs = foldr (\x g -> \acc -> g (f acc x)) id xs z  --id es la función identidad (\x -> x)
